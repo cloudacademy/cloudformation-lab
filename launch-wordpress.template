@@ -494,7 +494,7 @@
       "Metadata": {
         "AWS::CloudFormation::Init": {
           "configSets": {
-            "wordpress_install": ["install_cfn", "install_wordpress", "configure_wordpress"]
+            "wordpress_install": ["install_cfn", "prepare_php", "install_wordpress", "configure_wordpress"]
           },
           "install_cfn": {
             "files": {
@@ -547,16 +547,27 @@
             }
           },
 
+          "prepare_php": {
+            "commands": {
+              "php": {
+                "command": "yum -y install php56 --skip-broken"
+              },
+              "httpd": {
+                "command": "yum -y install httpd24 --skip-broken"
+              },
+              "phpmysql": {
+                "command": "yum -y install php56-mysqlnd --skip-broken"
+              }
+            }
+          },
+
           "install_wordpress": {
             "packages": {
               "yum": {
-                "php": [],
-                "php-mysql": [],
                 "mysql": [],
                 "mysql-server": [],
                 "mysql-devel": [],
-                "mysql-libs": [],
-                "httpd": []
+                "mysql-libs": []
               }
             },
             "sources": {
