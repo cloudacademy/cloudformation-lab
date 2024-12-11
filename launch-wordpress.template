@@ -407,58 +407,58 @@
 
     "AWSRegionArch2AMI": {
       "us-east-1": {
-        "PV64": "ami-22111148",
-        "HVM64": "ami-08111162",
-        "HVMG2": "ami-ebcec381"
+        "PV64": "NOT_SUPPORTED",
+        "HVM64": "ami-0e731c8a588258d0d",
+        "HVMG2": "NOT_SUPPORTED"
       },
       "us-west-2": {
-        "PV64": "ami-792bc219",
-        "HVM64": "ami-c229c0a2",
-        "HVMG2": "ami-0f28c06f"
+        "PV64": "NOT_SUPPORTED", 
+        "HVM64": "ami-061dd8b45bc7deb3d",
+        "HVMG2": "NOT_SUPPORTED"
       },
       "us-west-1": {
-        "PV64": "ami-0e087a6e",
-        "HVM64": "ami-1b0f7d7b",
-        "HVMG2": "ami-ab9defcb"
+        "PV64": "NOT_SUPPORTED",
+        "HVM64": "ami-0395eb9ce5ec77c58",
+        "HVMG2": "NOT_SUPPORTED"
       },
       "eu-west-1": {
-        "PV64": "ami-a5368cd6",
-        "HVM64": "ami-31328842",
-        "HVMG2": "ami-d1d652a2"
+        "PV64": "NOT_SUPPORTED",
+        "HVM64": "ami-0b752bf1df193a6c4",
+        "HVMG2": "NOT_SUPPORTED"
       },
       "eu-central-1": {
-        "PV64": "ami-2bde3944",
-        "HVM64": "ami-e2df388d",
-        "HVMG2": "ami-5240a73d"
+        "PV64": "NOT_SUPPORTED",
+        "HVM64": "ami-0f74c08b8b5effa56",
+        "HVMG2": "NOT_SUPPORTED"
       },
       "ap-northeast-1": {
-        "PV64": "ami-37020959",
-        "HVM64": "ami-f80e0596",
-        "HVMG2": "ami-34a9a35a"
+        "PV64": "NOT_SUPPORTED",
+        "HVM64": "ami-0ab0bbbd329f565e6",
+        "HVMG2": "NOT_SUPPORTED"
       },
       "ap-northeast-2": {
         "PV64": "NOT_SUPPORTED",
-        "HVM64": "ami-6598510b",
+        "HVM64": "ami-0e9bfdb247cc8de84",
         "HVMG2": "NOT_SUPPORTED"
       },
       "ap-southeast-1": {
-        "PV64": "ami-ff0cc79c",
-        "HVM64": "ami-e90dc68a",
-        "HVMG2": "ami-6f6ca70c"
+        "PV64": "NOT_SUPPORTED",
+        "HVM64": "ami-02a45d709a415958a",
+        "HVMG2": "NOT_SUPPORTED"
       },
       "ap-southeast-2": {
-        "PV64": "ami-f5210196",
-        "HVM64": "ami-f2210191",
-        "HVMG2": "ami-88c1e1eb"
+        "PV64": "NOT_SUPPORTED",
+        "HVM64": "ami-09c9c5f566b591728",
+        "HVMG2": "NOT_SUPPORTED"
       },
       "sa-east-1": {
-        "PV64": "ami-661e930a",
-        "HVM64": "ami-1e159872",
+        "PV64": "NOT_SUPPORTED",
+        "HVM64": "ami-03c6239555bb12112",
         "HVMG2": "NOT_SUPPORTED"
       },
       "cn-north-1": {
-        "PV64": "ami-08ef2465",
-        "HVM64": "ami-49e22924",
+        "PV64": "NOT_SUPPORTED",
+        "HVM64": "ami-0f77018c7e8370179",
         "HVMG2": "NOT_SUPPORTED"
       }
     }
@@ -549,14 +549,17 @@
 
           "prepare_php": {
             "commands": {
+              "enable_php82": {
+                "command": "amazon-linux-extras enable php8.2"
+              },
+              "clean_metadata": {
+                "command": "yum clean metadata"
+              },
               "php": {
-                "command": "yum -y install php56 --skip-broken"
+                "command": "yum -y install php php-cli php-json php-gd php-mysqlnd"
               },
               "httpd": {
-                "command": "yum -y install httpd24 --skip-broken"
-              },
-              "phpmysql": {
-                "command": "yum -y install php56-mysqlnd --skip-broken"
+                "command": "yum -y install httpd"
               }
             }
           },
@@ -564,10 +567,10 @@
           "install_wordpress": {
             "packages": {
               "yum": {
-                "mysql": [],
-                "mysql-server": [],
-                "mysql-devel": [],
-                "mysql-libs": []
+                "mariadb": [],
+                "mariadb-server": [],
+                "mariadb-devel": [],
+                "mariadb-libs": []
               }
             },
             "sources": {
@@ -625,7 +628,7 @@
                   "enabled": "true",
                   "ensureRunning": "true"
                 },
-                "mysqld": {
+                "mariadb": {
                   "enabled": "true",
                   "ensureRunning": "true"
                 }
